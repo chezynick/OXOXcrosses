@@ -1,9 +1,9 @@
 //create a player constructor with takeTurn function
 const PlayerMaker = (name, icon) => {
-    const takeTurn = () => {
+    const takeTurn = (a) => {
         let board = document.querySelectorAll('.space');
         let instruct = document.getElementById('playOrder');
-        instruct.innerText = name + ' place your ' + icon;
+        instruct.innerText = a + ' place your ' + icon;
          for(let i=0;i<board.length;i++){
         board[i].addEventListener('click', placeIcon)
         function placeIcon (){
@@ -16,7 +16,17 @@ const PlayerMaker = (name, icon) => {
             };      
         };
   };
-    return { name, icon, takeTurn };
+  const nameChanger = () => {
+    player1.name = prompt('player 1 What is your Name?');
+    player2.name = prompt('player 2 what is your name?');
+    let play1 = document.getElementById('player1');
+    let play2 = document.getElementById('player2');
+    play1.innerText = player1.name + ' is ' + player1.icon + '\'s'
+    play2.innerText = player2.name + ' is  ' + player2.icon + '\'s';
+    instruct.innerText = name + ' place your ' + icon;
+
+  }
+    return { name, icon, takeTurn, nameChanger };
 };
 
 
@@ -31,7 +41,7 @@ let gameBoard = new Array();
 
 makeBoard();
 function makeBoard  ()  {
-
+    
     for(let i=0;i<9;i++){
         const text = ' '
         gameBoard.push(text)
@@ -41,15 +51,10 @@ function makeBoard  ()  {
 
 const nameChange = (() =>{
     let button = document.getElementById('nameChange');
-    button.addEventListener('click', change)
-    function change (){
-        player1.name = prompt('player 1 What is your Name?');
-        player2.name = prompt('player 2 what is your name?');
-        let play1 = document.getElementById('player1');
-        let play2 = document.getElementById('player2');
-        play1.innerText = player1.name + ' is playing as ' + player1.icon;
-        play2.innerText = player2.name + ' is playing as ' + player2.icon;
+    button.addEventListener('click', change);
+    function change(){
         button.style.display = 'none';
+        player1.nameChanger();
     }
 })();
 
@@ -63,8 +68,9 @@ function renderBoard() {
         box.classList.add('space');
         box.innerHTML = gameBoard[i];
         emptyBoard.appendChild(box);
+       
     }  
-    nextTurn(); 
+     nextTurn(); 
     };
 
 
@@ -90,9 +96,9 @@ function nextTurn(){
         gameBoard = []
         makeBoard();
     } else if((howMany.length % 2) === 0){
-        player2.takeTurn();
+        player2.takeTurn(player2.name);
     } else{
-        player1.takeTurn();
+        player1.takeTurn(player1.name);
     };
 };
 };
