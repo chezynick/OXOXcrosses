@@ -3,7 +3,7 @@ const PlayerMaker = (name, icon) => {
     const takeTurn = () => {
         let board = document.querySelectorAll('.space');
         let instruct = document.getElementById('playOrder');
-        playOrder.innerText = name + ' place your ' + icon;
+        instruct.innerText = name + ' place your ' + icon;
          for(let i=0;i<board.length;i++){
         board[i].addEventListener('click', placeIcon)
         function placeIcon (){
@@ -24,8 +24,8 @@ const PlayerMaker = (name, icon) => {
 let gameBoard = new Array();
 
 //create the 2 players player a/player b for now 
-        const player1 = PlayerMaker('Player 1', 'x');
-        const player2 = PlayerMaker('Player 2', 'o');
+        let player1 = PlayerMaker('Player 1', 'x');
+        let player2 = PlayerMaker('Player 2', 'o');
         
 //call makeBoard to start game
 
@@ -38,6 +38,20 @@ function makeBoard  ()  {
         }          
   renderBoard()     
 };
+
+const nameChange = (() =>{
+    let button = document.getElementById('nameChange');
+    button.addEventListener('click', change)
+    function change (){
+        player1.name = prompt('player 1 What is your Name?');
+        player2.name = prompt('player 2 what is your name?');
+        let play1 = document.getElementById('player1');
+        let play2 = document.getElementById('player2');
+        play1.innerText = player1.name + ' is playing as ' + player1.icon;
+        play2.innerText = player2.name + ' is playing as ' + player2.icon;
+        button.style.display = 'none';
+    }
+})();
 
  
 //render the board
