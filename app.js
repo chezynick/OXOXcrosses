@@ -2,14 +2,19 @@
 const PlayerMaker = (name, icon) => {
     const takeTurn = () => {
         let board = document.querySelectorAll('.space');
+        let instruct = document.getElementById('playOrder');
+        playOrder.innerText = name + ' place your ' + icon;
          for(let i=0;i<board.length;i++){
         board[i].addEventListener('click', placeIcon)
         function placeIcon (){
-           gameBoard[i] = icon
-                renderBoard()     
-            }
-            
-        }
+           if (gameBoard[i] === ' '){
+               gameBoard[i] = icon;
+               renderBoard()
+           } else {
+               alert('try again')
+           };     
+            };      
+        };
   };
     return { name, icon, takeTurn };
 };
@@ -23,8 +28,8 @@ let gameBoard = new Array();
         const player2 = PlayerMaker('Player 2', 'o');
         
 //call makeBoard to start game
-makeBoard();
 
+makeBoard();
 function makeBoard  ()  {
 
     for(let i=0;i<9;i++){
